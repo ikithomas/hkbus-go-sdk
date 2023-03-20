@@ -1,5 +1,0 @@
-package hkbus
-
-func List() {
-
-}
