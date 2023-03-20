@@ -2,6 +2,7 @@ package hkbus
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 )
 
@@ -10,15 +11,15 @@ type kmbResponse interface {
 }
 
 var (
-	_ kmbResponse = &RouteListResponse{}
-	_ kmbResponse = &RouteGetResponse{}
-	_ kmbResponse = &StopListResponse{}
-	_ kmbResponse = &StopGetResponse{}
-	_ kmbResponse = &RouteStopListResponse{}
-	_ kmbResponse = &RouteStopGetResponse{}
-	_ kmbResponse = &EtaGetResponse{}
-	_ kmbResponse = &StopEtaResponse{}
-	_ kmbResponse = &RouteEtaResponse{}
+	_ kmbResponse = &routeListResponse{}
+	_ kmbResponse = &routeGetResponse{}
+	_ kmbResponse = &stopListResponse{}
+	_ kmbResponse = &stopGetResponse{}
+	_ kmbResponse = &routeStopListResponse{}
+	_ kmbResponse = &routeStopGetResponse{}
+	_ kmbResponse = &etaGetResponse{}
+	_ kmbResponse = &stopEtaResponse{}
+	_ kmbResponse = &routeEtaResponse{}
 
 	DirectionInbound  = "inbound"
 	DirectionOutbound = "outbound"
@@ -30,7 +31,7 @@ var (
 	  GET /v1/transport/kmb/route/
 
 		{
-		   "type":"RouteListResponse",
+		   "type":"RouteList",
 		   "version":"1.0",
 		   "generated_timestamp":"2020-11-29T11:40:48+08:00",
 		   "data":[
@@ -63,7 +64,7 @@ var (
 		   ]
 		}
 */
-type RouteListResponse struct {
+type routeListResponse struct {
 	Type               string    `json:"type"`
 	Version            string    `json:"version"`
 	GeneratedTimestamp time.Time `json:"generated_timestamp"`
@@ -71,7 +72,7 @@ type RouteListResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *RouteListResponse) Validate() error {
+func (r *routeListResponse) Validate() error {
 	if r.Type != "RouteList" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -103,7 +104,7 @@ func (r *RouteListResponse) Validate() error {
 	    }
 	  }
 */
-type RouteGetResponse struct {
+type routeGetResponse struct {
 	Type               string    `json:"type"`
 	Version            string    `json:"version"`
 	GeneratedTimestamp time.Time `json:"generated_timestamp"`
@@ -111,7 +112,7 @@ type RouteGetResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *RouteGetResponse) Validate() error {
+func (r *routeGetResponse) Validate() error {
 	if r.Type != "Route" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -164,7 +165,7 @@ type Route struct {
 		   ]
 		}
 */
-type StopListResponse struct {
+type stopListResponse struct {
 	Type               string    `json:"type"`
 	Version            string    `json:"version"`
 	GeneratedTimestamp time.Time `json:"generated_timestamp"`
@@ -172,7 +173,7 @@ type StopListResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *StopListResponse) Validate() error {
+func (r *stopListResponse) Validate() error {
 	if r.Type != "StopList" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -200,7 +201,7 @@ func (r *StopListResponse) Validate() error {
 		  }
 		}
 */
-type StopGetResponse struct {
+type stopGetResponse struct {
 	Type               string    `json:"type"`
 	Version            string    `json:"version"`
 	GeneratedTimestamp time.Time `json:"generated_timestamp"`
@@ -208,7 +209,7 @@ type StopGetResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *StopGetResponse) Validate() error {
+func (r *stopGetResponse) Validate() error {
 	if r.Type != "Stop" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -223,9 +224,17 @@ type Stop struct {
 	NameTc        string    `json:"name_tc"`
 	NameEn        string    `json:"name_en"`
 	NameSc        string    `json:"name_sc"`
-	Lat           string    `json:"lat"`
-	Long          string    `json:"long"`
+	LatString     string    `json:"lat"`
+	LongString    string    `json:"long"`
 	DataTimestamp time.Time `json:"data_timestamp"`
+}
+
+func (s Stop) Lat() (float64, error) {
+	return strconv.ParseFloat(s.LatString, 64)
+}
+
+func (s Stop) Long() (float64, error) {
+	return strconv.ParseFloat(s.LongString, 64)
 }
 
 /*
@@ -266,7 +275,7 @@ type Stop struct {
 		   ]
 		}
 */
-type RouteStopListResponse struct {
+type routeStopListResponse struct {
 	Type               string      `json:"type"`
 	Version            string      `json:"version"`
 	GeneratedTimestamp time.Time   `json:"generated_timestamp"`
@@ -274,7 +283,7 @@ type RouteStopListResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *RouteStopListResponse) Validate() error {
+func (r *routeStopListResponse) Validate() error {
 	if r.Type != "RouteStopList" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -313,7 +322,7 @@ func (r *RouteStopListResponse) Validate() error {
 		   ]
 		}
 */
-type RouteStopGetResponse struct {
+type routeStopGetResponse struct {
 	Type               string      `json:"type"`
 	Version            string      `json:"version"`
 	GeneratedTimestamp time.Time   `json:"generated_timestamp"`
@@ -321,7 +330,7 @@ type RouteStopGetResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *RouteStopGetResponse) Validate() error {
+func (r *routeStopGetResponse) Validate() error {
 	if r.Type != "RouteStop" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -336,9 +345,13 @@ type RouteStop struct {
 	Route         string    `json:"route"`
 	Bound         string    `json:"bound"`
 	ServiceType   string    `json:"service_type"`
-	Seq           string    `json:"seq"`
+	SeqString     string    `json:"seq"`
 	Stop          string    `json:"stop"`
 	DataTimestamp time.Time `json:"data_timestamp"`
+}
+
+func (r RouteStop) Seq() (int, error) {
+	return strconv.Atoi(r.SeqString)
 }
 
 /*
@@ -403,7 +416,7 @@ type RouteStop struct {
 		   ]
 		}
 */
-type EtaGetResponse struct {
+type etaGetResponse struct {
 	Type               string    `json:"type"`
 	Version            string    `json:"version"`
 	GeneratedTimestamp time.Time `json:"generated_timestamp"`
@@ -411,7 +424,7 @@ type EtaGetResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *EtaGetResponse) Validate() error {
+func (r *etaGetResponse) Validate() error {
 	if r.Type != "ETA" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -592,7 +605,7 @@ func (r *EtaGetResponse) Validate() error {
 		   ]
 		}
 */
-type StopEtaResponse struct {
+type stopEtaResponse struct {
 	Type               string    `json:"type"`
 	Version            string    `json:"version"`
 	GeneratedTimestamp time.Time `json:"generated_timestamp"`
@@ -600,7 +613,7 @@ type StopEtaResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *StopEtaResponse) Validate() error {
+func (r *stopEtaResponse) Validate() error {
 	if r.Type != "StopETA" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}
@@ -717,7 +730,7 @@ func (r *StopEtaResponse) Validate() error {
 		   ]
 		}
 */
-type RouteEtaResponse struct {
+type routeEtaResponse struct {
 	Type               string    `json:"type"`
 	Version            string    `json:"version"`
 	GeneratedTimestamp time.Time `json:"generated_timestamp"`
@@ -725,7 +738,7 @@ type RouteEtaResponse struct {
 }
 
 // Validate implements kmbResponse
-func (r *RouteEtaResponse) Validate() error {
+func (r *routeEtaResponse) Validate() error {
 	if r.Type != "RouteETA" {
 		return fmt.Errorf("%w type %s", errBadResponse, r.Type)
 	}

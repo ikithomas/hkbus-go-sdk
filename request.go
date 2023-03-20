@@ -8,12 +8,12 @@ import (
 
 func RouteList(ctx context.Context) ([]Route, error) {
 	path := "/v1/transport/kmb/route/"
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
 
-	var r RouteListResponse
+	var r routeListResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return nil, err
@@ -28,12 +28,12 @@ func RouteList(ctx context.Context) ([]Route, error) {
 
 func RouteGet(ctx context.Context, route string, direction string, serviceType string) (Route, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/route/%s/%s/%s", route, direction, serviceType)
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return Route{}, err
 	}
 
-	var r RouteGetResponse
+	var r routeGetResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return Route{}, err
@@ -48,12 +48,12 @@ func RouteGet(ctx context.Context, route string, direction string, serviceType s
 
 func StopList(ctx context.Context) ([]Stop, error) {
 	path := "/v1/transport/kmb/stop"
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
 
-	var r StopListResponse
+	var r stopListResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return nil, err
@@ -68,12 +68,12 @@ func StopList(ctx context.Context) ([]Stop, error) {
 
 func StopGet(ctx context.Context, stopId string) (Stop, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/stop/%s", stopId)
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return Stop{}, err
 	}
 
-	var r StopGetResponse
+	var r stopGetResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return Stop{}, err
@@ -88,12 +88,12 @@ func StopGet(ctx context.Context, stopId string) (Stop, error) {
 
 func RouteStopList(ctx context.Context) ([]RouteStop, error) {
 	path := "/v1/transport/kmb/route-stop"
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
 
-	var r RouteStopListResponse
+	var r routeStopListResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return nil, err
@@ -108,12 +108,12 @@ func RouteStopList(ctx context.Context) ([]RouteStop, error) {
 
 func RouteStopGet(ctx context.Context, route string, direction string, serviceType string) ([]RouteStop, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/route-stop/%s/%s/%s", route, direction, serviceType)
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
 
-	var r RouteStopGetResponse
+	var r routeStopGetResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return nil, err
@@ -128,12 +128,12 @@ func RouteStopGet(ctx context.Context, route string, direction string, serviceTy
 
 func EtaGet(ctx context.Context, route string, direction string, serviceType string) ([]Eta, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/eta/%s/%s/%s", route, direction, serviceType)
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
 
-	var r EtaGetResponse
+	var r etaGetResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return nil, err
@@ -148,12 +148,12 @@ func EtaGet(ctx context.Context, route string, direction string, serviceType str
 
 func StopEtaGet(ctx context.Context, stopId string) ([]Eta, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/stop-eta/%s", stopId)
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
 
-	var r StopEtaResponse
+	var r stopEtaResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return nil, err
@@ -168,12 +168,12 @@ func StopEtaGet(ctx context.Context, stopId string) ([]Eta, error) {
 
 func RouteEtaGet(ctx context.Context, route string, serviceType string) ([]Eta, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/route-eta/%s/%s", route, serviceType)
-	b, err := GetPath(ctx, path)
+	b, err := getPath(ctx, path)
 	if err != nil {
 		return nil, err
 	}
 
-	var r RouteEtaResponse
+	var r routeEtaResponse
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return nil, err

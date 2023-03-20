@@ -10,7 +10,7 @@ var (
 	baseURL = "https://data.etabus.gov.hk"
 )
 
-func GetPath(ctx context.Context, path string) ([]byte, error) {
+func getPath(ctx context.Context, path string) ([]byte, error) {
 	return httpGet(ctx, fmt.Sprintf("%s/%s", baseURL, path))
 }
 
