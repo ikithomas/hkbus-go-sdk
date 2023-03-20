@@ -4,18 +4,16 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"net/http"
 )
 
-var (
+const (
 	baseURL = "https://data.etabus.gov.hk"
 )
 
-func getPath(ctx context.Context, path string) ([]byte, error) {
-	return httpGet(ctx, fmt.Sprintf("%s/%s", baseURL, path))
-}
-
-func httpGet(ctx context.Context, url string) ([]byte, error) {
-	res, err := Client.Get(url)
+func getPath(ctx context.Context, client http.Client, path string) ([]byte, error) {
+	url := fmt.Sprintf("%s/%s", baseURL, path)
+	res, err := client.Get(url)
 	if err != nil {
 		return nil, err
 	}

@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
 )
 
-func RouteList(ctx context.Context) ([]Route, error) {
+func RouteList(ctx context.Context, c http.Client) ([]Route, error) {
 	path := "/v1/transport/kmb/route/"
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return nil, err
 	}
@@ -26,9 +27,9 @@ func RouteList(ctx context.Context) ([]Route, error) {
 	return r.Data, nil
 }
 
-func RouteGet(ctx context.Context, route string, direction string, serviceType string) (Route, error) {
+func RouteGet(ctx context.Context, c http.Client, route string, direction string, serviceType string) (Route, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/route/%s/%s/%s", route, direction, serviceType)
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return Route{}, err
 	}
@@ -46,9 +47,9 @@ func RouteGet(ctx context.Context, route string, direction string, serviceType s
 	return r.Data, nil
 }
 
-func StopList(ctx context.Context) ([]Stop, error) {
+func StopList(ctx context.Context, c http.Client) ([]Stop, error) {
 	path := "/v1/transport/kmb/stop"
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return nil, err
 	}
@@ -66,9 +67,9 @@ func StopList(ctx context.Context) ([]Stop, error) {
 	return r.Data, nil
 }
 
-func StopGet(ctx context.Context, stopId string) (Stop, error) {
+func StopGet(ctx context.Context, c http.Client, stopId string) (Stop, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/stop/%s", stopId)
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return Stop{}, err
 	}
@@ -86,9 +87,9 @@ func StopGet(ctx context.Context, stopId string) (Stop, error) {
 	return r.Data, nil
 }
 
-func RouteStopList(ctx context.Context) ([]RouteStop, error) {
+func RouteStopList(ctx context.Context, c http.Client) ([]RouteStop, error) {
 	path := "/v1/transport/kmb/route-stop"
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return nil, err
 	}
@@ -106,9 +107,9 @@ func RouteStopList(ctx context.Context) ([]RouteStop, error) {
 	return r.Data, nil
 }
 
-func RouteStopGet(ctx context.Context, route string, direction string, serviceType string) ([]RouteStop, error) {
+func RouteStopGet(ctx context.Context, c http.Client, route string, direction string, serviceType string) ([]RouteStop, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/route-stop/%s/%s/%s", route, direction, serviceType)
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return nil, err
 	}
@@ -126,9 +127,9 @@ func RouteStopGet(ctx context.Context, route string, direction string, serviceTy
 	return r.Data, nil
 }
 
-func EtaGet(ctx context.Context, route string, direction string, serviceType string) ([]Eta, error) {
+func EtaGet(ctx context.Context, c http.Client, route string, direction string, serviceType string) ([]Eta, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/eta/%s/%s/%s", route, direction, serviceType)
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return nil, err
 	}
@@ -146,9 +147,9 @@ func EtaGet(ctx context.Context, route string, direction string, serviceType str
 	return r.Data, nil
 }
 
-func StopEtaGet(ctx context.Context, stopId string) ([]Eta, error) {
+func StopEtaGet(ctx context.Context, c http.Client, stopId string) ([]Eta, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/stop-eta/%s", stopId)
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return nil, err
 	}
@@ -166,9 +167,9 @@ func StopEtaGet(ctx context.Context, stopId string) ([]Eta, error) {
 	return r.Data, nil
 }
 
-func RouteEtaGet(ctx context.Context, route string, serviceType string) ([]Eta, error) {
+func RouteEtaGet(ctx context.Context, c http.Client, route string, serviceType string) ([]Eta, error) {
 	path := fmt.Sprintf("/v1/transport/kmb/route-eta/%s/%s", route, serviceType)
-	b, err := getPath(ctx, path)
+	b, err := getPath(ctx, c, path)
 	if err != nil {
 		return nil, err
 	}
