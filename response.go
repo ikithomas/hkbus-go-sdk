@@ -123,7 +123,6 @@ func (r *routeGetResponse) Validate() error {
 }
 
 type Route struct {
-	Co          string `json:"co"`
 	Route       string `json:"route"`
 	Bound       string `json:"bound"`
 	ServiceType string `json:"service_type"`
@@ -339,7 +338,6 @@ func (r *routeStopGetResponse) Validate() error {
 }
 
 type RouteStop struct {
-	Co          string `json:"co"`
 	Route       string `json:"route"`
 	Bound       string `json:"bound"`
 	ServiceType string `json:"service_type"`
@@ -746,7 +744,6 @@ func (r *routeEtaResponse) Validate() error {
 }
 
 type Eta struct {
-	Co          string    `json:"co"`
 	Route       string    `json:"route"`
 	Dir         string    `json:"dir"`
 	ServiceType int       `json:"service_type"`
