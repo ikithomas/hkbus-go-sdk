@@ -24,7 +24,7 @@ func TestRouteGet(t *testing.T) {
 func TestStopList(t *testing.T) {
 	got, err := hkbus.StopList(context.Background(), http.Client{})
 	assert.NoError(t, err)
-	assert.Equal(t, 6389, len(got))
+	assert.Equal(t, 6390, len(got))
 }
 
 func TestStopGet(t *testing.T) {
@@ -36,7 +36,7 @@ func TestStopGet(t *testing.T) {
 func TestRouteStopList(t *testing.T) {
 	got, err := hkbus.RouteStopList(context.Background(), http.Client{})
 	assert.NoError(t, err)
-	assert.Equal(t, 33755, len(got))
+	assert.Equal(t, 33756, len(got))
 }
 
 func TestRouteStopGet(t *testing.T) {
@@ -54,11 +54,11 @@ func TestEtaGet(t *testing.T) {
 func TestStopEtaGet(t *testing.T) {
 	got, err := hkbus.StopEtaGet(context.Background(), http.Client{}, "B8B04CD1E568B8F6")
 	assert.NoError(t, err)
-	assert.Equal(t, 9, len(got))
+	assert.Equal(t, 13, len(got))
 }
 
 func TestRouteEtaGet(t *testing.T) {
 	got, err := hkbus.RouteEtaGet(context.Background(), http.Client{}, "3M", "1")
 	assert.NoError(t, err)
-	assert.Equal(t, 25, len(got))
+	assert.Equal(t, 75, len(got))
 }

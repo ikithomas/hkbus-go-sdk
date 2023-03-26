@@ -75,6 +75,7 @@ func StopGet(ctx context.Context, c http.Client, stopId string) (Stop, error) {
 	}
 
 	var r stopGetResponse
+	fmt.Println(string(b))
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		return Stop{}, err

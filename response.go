@@ -46,7 +46,7 @@ var (
 		         "dest_en":"TAI PO CENTRAL",
 		         "dest_tc":"大埔中心",
 		         "dest_sc":"大埔中心",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -59,16 +59,16 @@ var (
 		         "dest_en":"KWUN TONG FERRY",
 		         "dest_tc":"觀塘碼頭",
 		         "dest_sc":"观塘码头",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      }
 		   ]
 		}
 */
 type routeListResponse struct {
-	Type               string    `json:"type"`
-	Version            string    `json:"version"`
-	GeneratedTimestamp time.Time `json:"generated_timestamp"`
-	Data               []Route   `json:"data"`
+	Type      string    `json:"type"`
+	Version   string    `json:"version"`
+	Timestamp time.Time `json:"generated_timestamp"`
+	Data      []Route   `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -100,15 +100,15 @@ func (r *routeListResponse) Validate() error {
 	    "dest_en": "TAI PO CENTRAL",
 	    "dest_tc": "大埔中心",
 	    "dest_sc": "大埔中心",
-	    "data_timestamp": "2020-11-29T11:40:00+08:00"
+	    "generated_timestamp": "2020-11-29T11:40:00+08:00"
 	    }
 	  }
 */
 type routeGetResponse struct {
-	Type               string    `json:"type"`
-	Version            string    `json:"version"`
-	GeneratedTimestamp time.Time `json:"generated_timestamp"`
-	Data               Route     `json:"data"`
+	Type      string    `json:"type"`
+	Version   string    `json:"version"`
+	Timestamp time.Time `json:"generated_timestamp"`
+	Data      Route     `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -123,17 +123,16 @@ func (r *routeGetResponse) Validate() error {
 }
 
 type Route struct {
-	Co            string    `json:"co"`
-	Route         string    `json:"route"`
-	Bound         string    `json:"bound"`
-	ServiceType   string    `json:"service_type"`
-	OrigEn        string    `json:"orig_en"`
-	OrigTc        string    `json:"orig_tc"`
-	OrigSc        string    `json:"orig_sc"`
-	DestEn        string    `json:"dest_en"`
-	DestTc        string    `json:"dest_tc"`
-	DestSc        string    `json:"dest_sc"`
-	DataTimestamp time.Time `json:"data_timestamp"`
+	Co          string `json:"co"`
+	Route       string `json:"route"`
+	Bound       string `json:"bound"`
+	ServiceType string `json:"service_type"`
+	OrigEn      string `json:"orig_en"`
+	OrigTc      string `json:"orig_tc"`
+	OrigSc      string `json:"orig_sc"`
+	DestEn      string `json:"dest_en"`
+	DestTc      string `json:"dest_tc"`
+	DestSc      string `json:"dest_sc"`
 }
 
 /*
@@ -151,7 +150,7 @@ type Route struct {
 		         "name_sc":"中秀茂坪",
 		         "lat":22.318856,
 		         "long":114.231353,
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      },
 		      {
 		         "stop":"6F106FD26B684372",
@@ -160,16 +159,16 @@ type Route struct {
 		         "name_sc":"秀安楼",
 		         "lat":"22.316738",
 		         "long":"114.233354",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      }
 		   ]
 		}
 */
 type stopListResponse struct {
-	Type               string    `json:"type"`
-	Version            string    `json:"version"`
-	GeneratedTimestamp time.Time `json:"generated_timestamp"`
-	Data               []Stop    `json:"data"`
+	Type      string    `json:"type"`
+	Version   string    `json:"version"`
+	Timestamp time.Time `json:"generated_timestamp"`
+	Data      []Stop    `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -197,15 +196,15 @@ func (r *stopListResponse) Validate() error {
 		    "name_sc": "中秀茂坪",
 		    "lat": 22.318856,
 		    "long": 114.231353,
-		    "data_timestamp": "2020-11-29T11:40:00+08:00"
+		    "generated_timestamp": "2020-11-29T11:40:00+08:00"
 		  }
 		}
 */
 type stopGetResponse struct {
-	Type               string    `json:"type"`
-	Version            string    `json:"version"`
-	GeneratedTimestamp time.Time `json:"generated_timestamp"`
-	Data               Stop      `json:"data"`
+	Type      string    `json:"type"`
+	Version   string    `json:"version"`
+	Timestamp time.Time `json:"generated_timestamp"`
+	Data      Stop      `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -220,13 +219,12 @@ func (r *stopGetResponse) Validate() error {
 }
 
 type Stop struct {
-	Stop          string    `json:"stop"`
-	NameTc        string    `json:"name_tc"`
-	NameEn        string    `json:"name_en"`
-	NameSc        string    `json:"name_sc"`
-	LatString     string    `json:"lat"`
-	LongString    string    `json:"long"`
-	DataTimestamp time.Time `json:"data_timestamp"`
+	Stop       string `json:"stop"`
+	NameTc     string `json:"name_tc"`
+	NameEn     string `json:"name_en"`
+	NameSc     string `json:"name_sc"`
+	LatString  string `json:"lat"`
+	LongString string `json:"long"`
 }
 
 func (s Stop) Lat() (float64, error) {
@@ -252,7 +250,7 @@ func (s Stop) Long() (float64, error) {
 		         "service_type":"1",
 		         "seq":1,
 		         "stop":"A3ADFCDF8487ADB9",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -261,7 +259,7 @@ func (s Stop) Long() (float64, error) {
 		         "service_type":"1",
 		         "seq":34,
 		         "stop":"DCFF4041D0C0ACF8",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -270,16 +268,16 @@ func (s Stop) Long() (float64, error) {
 		         "service_type":"1",
 		         "seq":1,
 		         "stop":"25BD7B50919AA221",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      }
 		   ]
 		}
 */
 type routeStopListResponse struct {
-	Type               string      `json:"type"`
-	Version            string      `json:"version"`
-	GeneratedTimestamp time.Time   `json:"generated_timestamp"`
-	Data               []RouteStop `json:"data"`
+	Type      string      `json:"type"`
+	Version   string      `json:"version"`
+	Timestamp time.Time   `json:"generated_timestamp"`
+	Data      []RouteStop `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -308,7 +306,7 @@ func (r *routeStopListResponse) Validate() error {
 		         "service_type":"1",
 		         "seq":1,
 		         "stop":"A3ADFCDF8487ADB9",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -317,16 +315,16 @@ func (r *routeStopListResponse) Validate() error {
 		         "service_type":"1",
 		         "seq":34,
 		         "stop":"DCFF4041D0C0ACF8",
-		         "data_timestamp":"2020-11-29T11:40:00+08:00"
+		         "generated_timestamp":"2020-11-29T11:40:00+08:00"
 		      }
 		   ]
 		}
 */
 type routeStopGetResponse struct {
-	Type               string      `json:"type"`
-	Version            string      `json:"version"`
-	GeneratedTimestamp time.Time   `json:"generated_timestamp"`
-	Data               []RouteStop `json:"data"`
+	Type      string      `json:"type"`
+	Version   string      `json:"version"`
+	Timestamp time.Time   `json:"generated_timestamp"`
+	Data      []RouteStop `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -341,13 +339,12 @@ func (r *routeStopGetResponse) Validate() error {
 }
 
 type RouteStop struct {
-	Co            string    `json:"co"`
-	Route         string    `json:"route"`
-	Bound         string    `json:"bound"`
-	ServiceType   string    `json:"service_type"`
-	SeqString     string    `json:"seq"`
-	Stop          string    `json:"stop"`
-	DataTimestamp time.Time `json:"data_timestamp"`
+	Co          string `json:"co"`
+	Route       string `json:"route"`
+	Bound       string `json:"bound"`
+	ServiceType string `json:"service_type"`
+	SeqString   string `json:"seq"`
+	Stop        string `json:"stop"`
 }
 
 func (r RouteStop) Seq() (int, error) {
@@ -377,7 +374,7 @@ func (r RouteStop) Seq() (int, error) {
 		         "rmk_tc":"",
 		         "rmk_sc":"",
 		         "rmk_en":"",
-		         "data_timestamp":"2021-03-04T17:22:15+08:00"
+		         "generated_timestamp":"2021-03-04T17:22:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -394,7 +391,7 @@ func (r RouteStop) Seq() (int, error) {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-04T17:22:15+08:00"
+		         "generated_timestamp":"2021-03-04T17:22:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -411,16 +408,16 @@ func (r RouteStop) Seq() (int, error) {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-04T17:22:15+08:00"
+		         "generated_timestamp":"2021-03-04T17:22:15+08:00"
 		      }
 		   ]
 		}
 */
 type etaGetResponse struct {
-	Type               string    `json:"type"`
-	Version            string    `json:"version"`
-	GeneratedTimestamp time.Time `json:"generated_timestamp"`
-	Data               []Eta     `json:"data"`
+	Type      string    `json:"type"`
+	Version   string    `json:"version"`
+	Timestamp time.Time `json:"generated_timestamp"`
+	Data      []Eta     `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -456,7 +453,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -472,7 +469,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -488,7 +485,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -504,7 +501,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -520,7 +517,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -536,7 +533,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -552,7 +549,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -568,7 +565,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -584,7 +581,7 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -600,16 +597,16 @@ func (r *etaGetResponse) Validate() error {
 		         "rmk_tc":"服務只限於星期日及公眾假期",
 		         "rmk_sc":"服务只限于星期日及公众假期",
 		         "rmk_en":"This route only operates on Sundays and Public Holidays",
-		         "data_timestamp":"2021-03-18T12:21:15+08:00"
+		         "generated_timestamp":"2021-03-18T12:21:15+08:00"
 		      }
 		   ]
 		}
 */
 type stopEtaResponse struct {
-	Type               string    `json:"type"`
-	Version            string    `json:"version"`
-	GeneratedTimestamp time.Time `json:"generated_timestamp"`
-	Data               []Eta     `json:"data"`
+	Type      string    `json:"type"`
+	Version   string    `json:"version"`
+	Timestamp time.Time `json:"generated_timestamp"`
+	Data      []Eta     `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -645,7 +642,7 @@ func (r *stopEtaResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T13:39:46+08:00"
+		         "generated_timestamp":"2021-03-18T13:39:46+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -661,7 +658,7 @@ func (r *stopEtaResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T13:39:46+08:00"
+		         "generated_timestamp":"2021-03-18T13:39:46+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -677,7 +674,7 @@ func (r *stopEtaResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T13:39:46+08:00"
+		         "generated_timestamp":"2021-03-18T13:39:46+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -693,7 +690,7 @@ func (r *stopEtaResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T13:39:46+08:00"
+		         "generated_timestamp":"2021-03-18T13:39:46+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -709,7 +706,7 @@ func (r *stopEtaResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T13:39:46+08:00"
+		         "generated_timestamp":"2021-03-18T13:39:46+08:00"
 		      },
 		      {
 		         "co":"KMB",
@@ -725,16 +722,16 @@ func (r *stopEtaResponse) Validate() error {
 		         "rmk_tc":"原定班次",
 		         "rmk_sc":"原定班次",
 		         "rmk_en":"Scheduled Bus",
-		         "data_timestamp":"2021-03-18T13:39:46+08:00"
+		         "generated_timestamp":"2021-03-18T13:39:46+08:00"
 		      }
 		   ]
 		}
 */
 type routeEtaResponse struct {
-	Type               string    `json:"type"`
-	Version            string    `json:"version"`
-	GeneratedTimestamp time.Time `json:"generated_timestamp"`
-	Data               []Eta     `json:"data"`
+	Type      string    `json:"type"`
+	Version   string    `json:"version"`
+	Timestamp time.Time `json:"generated_timestamp"`
+	Data      []Eta     `json:"data"`
 }
 
 // Validate implements kmbResponse
@@ -749,21 +746,21 @@ func (r *routeEtaResponse) Validate() error {
 }
 
 type Eta struct {
-	Co            string    `json:"co"`
-	Route         string    `json:"route"`
-	Dir           string    `json:"dir"`
-	ServiceType   int       `json:"service_type"`
-	Seq           int       `json:"seq"`
-	Stop          string    `json:"stop"`
-	DestTc        string    `json:"dest_tc"`
-	DestSc        string    `json:"dest_sc"`
-	DestEn        string    `json:"dest_en"`
-	EtaSeq        int       `json:"eta_seq"`
-	Eta           time.Time `json:"eta"`
-	RmkTc         string    `json:"rmk_tc"`
-	RmkSc         string    `json:"rmk_sc"`
-	RmkEn         string    `json:"rmk_en"`
-	DataTimestamp time.Time `json:"data_timestamp"`
+	Co          string    `json:"co"`
+	Route       string    `json:"route"`
+	Dir         string    `json:"dir"`
+	ServiceType int       `json:"service_type"`
+	Seq         int       `json:"seq"`
+	Stop        string    `json:"stop"`
+	DestTc      string    `json:"dest_tc"`
+	DestSc      string    `json:"dest_sc"`
+	DestEn      string    `json:"dest_en"`
+	EtaSeq      int       `json:"eta_seq"`
+	Eta         time.Time `json:"eta"`
+	RmkTc       string    `json:"rmk_tc"`
+	RmkSc       string    `json:"rmk_sc"`
+	RmkEn       string    `json:"rmk_en"`
+	Timestamp   time.Time `json:"generated_timestamp"`
 }
 
 /*
